@@ -91,4 +91,8 @@ def list_all() -> list[dict]:
                     ORDER  BY indexed_at DESC
                     """
                 )
-                return cur.fetchall()
+                rows = cur.fetchall()
+                for r in rows:
+                    if r.get("indexed_at") is not None and not isinstance(r["indexed_at"], str):
+                        r["indexed_at"] = r["indexed_at"].isoformat()
+                return rows
