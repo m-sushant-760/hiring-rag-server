@@ -132,6 +132,26 @@ class TestBulkUploadSuccess:
 
     @patch(_PATCH_REG)
     @patch(_PATCH_PC)
+    def test_bulk_upload_with_singular_file_parameter_succeeds(self, mock_pc, mock_reg):
+        mock_pc.upsert_resume_chunks.return_value = 3
+
+        res = client.post(
+            "/api/resumes/bulk-upload",
+            files=[
+                ("file", _pdf_file("Alice Smith", "alice.pdf")),
+                ("file", _pdf_file("Bob Jones", "bob.pdf")),
+            ],
+        )
+
+        assert res.status_code == 200
+        body = res.json()
+        assert body["total_files"]   == 2
+        assert body["indexed_count"] == 2
+        assert body["soft_errors"]   == []
+        assert len(body["candidates"]) == 2
+
+    @patch(_PATCH_REG)
+    @patch(_PATCH_PC)
     def test_three_files_all_succeed(self, mock_pc, mock_reg):
         mock_pc.upsert_resume_chunks.return_value = 8
 

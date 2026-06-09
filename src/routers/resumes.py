@@ -373,7 +373,10 @@ async def upload_resume(file: UploadFile = File(...)):
 
 
 @router.post("/bulk-upload", response_model=BulkUploadResponse)
-async def bulk_upload_resumes(files: list[UploadFile] = File(...)):
+async def bulk_upload_resumes(
+    files: list[UploadFile] = File(default=[]),
+    file: list[UploadFile] = File(default=[]),
+):
     """
     Upload multiple resumes (PDF or DOCX) in a single multipart request.
 
@@ -397,10 +400,11 @@ async def bulk_upload_resumes(files: list[UploadFile] = File(...)):
           -F "files=@bob.docx" \\
           -F "files=@carol.pdf"
     """
-    if not files:
+    all_files = files + file
+    if not all_files:
         raise HTTPException(status_code=400, detail="No files provided.")
 
-    if len(files) > _MAX_BULK_FILES:
+    if len(all_files) > _MAX_BULK_FILES:
         raise HTTPException(
             status_code=400,
             detail=f"Too many files. Maximum {_MAX_BULK_FILES} files per request.",
@@ -409,8 +413,8 @@ async def bulk_upload_resumes(files: list[UploadFile] = File(...)):
     candidates: list[IngestionRecord] = []
     soft_errors: list[SoftError]      = []
 
-    for file in files:
-        result = await _process_single_resume(file)
+    for f in all_files:
+        result = await _process_single_resume(f)
         if result.ok:
             candidates.append(IngestionRecord(
                 candidate_id   = result.candidate_id,  # type: ignore[arg-type]
@@ -424,7 +428,7 @@ async def bulk_upload_resumes(files: list[UploadFile] = File(...)):
             ))
 
     return BulkUploadResponse(
-        total_files   = len(files),
+        total_files   = len(all_files),
         indexed_count = len(candidates),
         soft_errors   = soft_errors,
         candidates    = candidates,
