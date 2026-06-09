@@ -1,0 +1,58 @@
+# ── Render.com Blueprint configuration ──────────────────────────────────────────
+# Docs: https://render.com/docs/blueprints-readme
+
+services:
+  - type: web
+    name: rag-hiring-server
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: starter                  # Starter plan is required to mount persistent volumes
+    region: oregon                 # Standard Render region
+    numInstances: 1                # SQLite is Read-Write-Once; scale horizontally only with PostgreSQL
+    envVars:
+      - key: APP_ENV
+        value: production
+      
+      - key: PORT
+        value: 10000                # Render default port for web services
+      
+      - key: DATA_DIR
+        value: /data                # Directory on the mounted persistent disk
+      
+      - key: FEEDBACK_DB_PATH
+        value: /data/feedback.db    # Path to feedback database on persistent disk
+      
+      # ── Secrets (sync: false means Render will prompt you to enter them during setup) ──
+      - key: GOOGLE_API_KEY
+        sync: false
+      
+      - key: PINECONE_API_KEY
+        sync: false
+
+      # ── RAG Configs ────────────────────────────────────────────────────────
+      - key: PINECONE_INDEX_NAME
+        value: hiring-rag
+      
+      - key: PINECONE_CLOUD
+        value: aws
+      
+      - key: PINECONE_REGION
+        value: us-east-1
+      
+      - key: PINECONE_EMBEDDING_MODEL
+        value: multilingual-e5-large
+      
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash-lite
+
+      # ── Server Limits & Tunables ───────────────────────────────────────────
+      - key: MAX_UPLOAD_SIZE_MB
+        value: "10"
+      
+      - key: TOP_K_RESULTS
+        value: "10"
+
+    disk:
+      name: rag-server-data
+      mountPath: /data
+      sizeGB: 1                     # 1 GB is highly sufficient for SQLite databases

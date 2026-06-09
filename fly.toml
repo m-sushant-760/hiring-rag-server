@@ -1,0 +1,24 @@
+# ── Fly.io configuration ────────────────────────────────────────────
+# Docs: https://fly.io/docs/reference/configuration/
+
+app = "rag-hiring-server"
+primary_region = "iad"            # us-east-1 equivalent — closest to Pinecone
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  APP_ENV = "production"
+  PORT = "8000"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "stop"     # scale to zero when idle → saves cost
+  auto_start_machines = true      # wake on incoming request
+  min_machines_running = 0
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1

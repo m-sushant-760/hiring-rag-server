@@ -1,0 +1,49 @@
+[project]
+name = "rag-hiring-server"
+version = "0.2.0"
+description = "RAG API for screening resumes against job descriptions"
+requires-python = ">=3.12"
+dependencies = [
+    # Web framework
+    "fastapi==0.115.6",
+    "uvicorn[standard]==0.32.1",
+    # File uploads
+    "python-multipart==0.0.20",
+    # PDF/DOCX parsing
+    "pymupdf==1.25.3",
+    "python-docx==1.1.2",
+    # Vector database (Pinecone Integrated Inference)
+    "pinecone>=6.0.0,<10.0",
+    # Text chunking
+    "langchain>=0.3,<1.0",
+    # LLM — Google Gemini free tier (requires httpx>=0.28.1)
+    "google-genai>=2.0,<3.0",
+    # Skills ontology graph
+    "networkx>=3.0",
+    # Env management
+    "python-dotenv==1.0.1",
+    # PostgreSQL driver
+    "psycopg[binary,pool]>=3.2.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.4",
+    "httpx>=0.28.1",
+    "pytest-asyncio==0.24.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.uv]
+# Treat this as an application, not an installable library.
+package = false
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

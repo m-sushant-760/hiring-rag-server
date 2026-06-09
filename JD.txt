@@ -1,0 +1,44 @@
+
+
+{
+    "job_description": "About the Role
+We are seeking a highly skilled Python Developer with a strong background in distributed systems, DevOps practices, and Test-Driven Development (TDD). The ideal candidate will be proficient in event-driven architectures using Kafka, familiar with Java-based microservices, and experienced with NoSQL databases (preferably Snowflake). Youll collaborate with cross-functional teams to design, develop, and deploy scalable, high-performance backend services and optionally contribute to front-end components (React, Node.js) or Generative AI-driven features in our product ecosystem.
+Key Responsibilities
+* Design, develop, and maintain robust Python-based backend services and APIs.
+* Build and integrate event streaming solutions using Apache Kafka for real-time data pipelines.
+* Collaborate with Java teams to develop and maintain hybrid Python–Java microservices.
+* Implement Test-Driven Development (TDD) practices and ensure high code coverage and maintainability.
+* Design and optimize NoSQL data models (preferably Snowflake, MongoDB, or DynamoDB).
+* Develop and automate CI/CD pipelines using DevOps tools (Jenkins, GitHub Actions, Docker, Kubernetes).
+* Collaborate with Data Engineering and AI teams to integrate analytics, ML, or Generative AI modules.
+* Contribute to architectural design and performance optimization discussions.
+* Optionally, support front-end development in React.js or Node.js when needed for full-stack integration.
+Required Skills and Experience
+* 3+ years of professional experience in software development.
+* Strong proficiency in Python (Flask, FastAPI, or Django frameworks).
+* Solid understanding of event-driven systems and Apache Kafka.
+* Hands-on experience with Java (Spring Boot or similar frameworks).
+* Experience with DevOps tooling — Docker, Kubernetes, CI/CD, monitoring, and deployment automation.
+* Expertise in NoSQL databases (Snowflake preferred; MongoDB, Cassandra, or DynamoDB acceptable).
+* Practical experience with Test-Driven Development (TDD) and automated testing frameworks (pytest, unittest, JUnit).
+* Strong grasp of software design principles, RESTful APIs, and microservices architecture.
+Good to Have
+* Exposure to Generative AI technologies (OpenAI, LangChain, HuggingFace, or similar).
+* Front-end development experience using React.js, Node.js, or TypeScript.
+* Familiarity with cloud platforms (AWS, GCP, or Azure).
+* Experience with data streaming, real-time analytics, or warehouse integration with Snowflake.
+* Knowledge of observability tools (Prometheus, Grafana, ELK).
+Soft Skills
+* Strong analytical and problem-solving mindset.
+* Excellent communication and collaboration skills.
+* Self-driven, curious, and open to learning emerging technologies.
+* Comfortable working in agile, fast-paced environments.
+
+
+
+Designation:Engineering Manager-Python
+Location:Bengaluru
+Role:Engineering Manager-Python
+",
+    "top_k": 5
+  }
